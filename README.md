@@ -1,3 +1,7 @@
+#分支描述
+在shiro的一次认证过程中会调用10次左右的doReadSession，如果使用内存缓存这个问题不大。但是如果使用redis，而且子网络情况不是特别好的情况下这就成为问题了。我简单在我的环境下测试了一下。一次redis请求需要80 ~ 100 ms， 一下来10次，我们一次认证就需要10 * 100 = 1000 ms, 这个就是我们无法接受的了。
+针对这个问题可以重写DefaultWebSessionManager，将缓存数据存放到request中，这样可以保证每次请求（可能会多次调用doReadSession方法）只请求一次redis。
+
 # shiro-redis
 
 [![Build Status](https://travis-ci.org/alexxiyang/shiro-redis.svg?branch=master)](https://travis-ci.org/alexxiyang/shiro-redis)
