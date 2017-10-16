@@ -43,7 +43,11 @@ redisManager.password =
 #============redisSessionDAO=============
 redisSessionDAO = org.crazycake.shiro.RedisSessionDAO
 redisSessionDAO.redisManager = $redisManager
-sessionManager = org.apache.shiro.web.session.mgt.DefaultWebSessionManager
+
+# modify by goma 
+#sessionManager = org.apache.shiro.web.session.mgt.DefaultWebSessionManager
+sessionManager = org.crazycake.shiro.MyDefaultWebSessionManager
+
 sessionManager.sessionDAO = $redisSessionDAO
 securityManager.sessionManager = $sessionManager
 
@@ -121,10 +125,17 @@ spring.xml:
 	<property name="redisManager" ref="redisManager" />
 </bean>
 
-<!-- sessionManager -->
+
+<!-- modify by goma -->
+<!-- sessionManager
 <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 	<property name="sessionDAO" ref="redisSessionDAO" />
 </bean>
+-->
+<bean id="sessionManager" class="org.crazycake.shiro.MyDefaultWebSessionManager">
+	<property name="sessionDAO" ref="redisSessionDAO" />
+</bean>
+
 
 <!-- cacheManager -->
 <bean id="cacheManager" class="org.crazycake.shiro.RedisCacheManager">
