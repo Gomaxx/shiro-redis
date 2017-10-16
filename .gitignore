@@ -2,3 +2,9 @@
 .classpath
 .project
 target
+
+*.iml
+.idea/
+.project
+/config
+*/target
